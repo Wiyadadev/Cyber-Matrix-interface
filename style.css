@@ -1,10 +1,5 @@
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
 body{
+  margin:0;
   overflow:hidden;
   background:black;
   font-family:Arial;
@@ -17,7 +12,7 @@ canvas{
   z-index:-1;
 }
 
-.content{
+.profile{
   height:100vh;
   display:flex;
   flex-direction:column;
@@ -27,25 +22,67 @@ canvas{
   text-align:center;
 }
 
+.avatar{
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  box-shadow:0 0 30px #00ff88;
+  margin-bottom:20px;
+}
+
 h1{
-  font-size:70px;
-  text-shadow:0 0 20px #00ff88;
+  font-size:50px;
+}
+
+/* 🔥 GLITCH EFFECT */
+.glitch{
+  position:relative;
+  color:#00ff88;
+  text-shadow:0 0 10px #00ff88;
+}
+
+.glitch::before,
+.glitch::after{
+  content:attr(data-text);
+  position:absolute;
+  left:0;
+}
+
+.glitch::before{
+  color:red;
+  animation:glitch 0.3s infinite;
+}
+
+.glitch::after{
+  color:blue;
+  animation:glitch 0.3s infinite reverse;
+}
+
+@keyframes glitch{
+  0%{transform:translate(0)}
+  20%{transform:translate(-2px,2px)}
+  40%{transform:translate(-2px,-2px)}
+  60%{transform:translate(2px,2px)}
+  80%{transform:translate(2px,-2px)}
+  100%{transform:translate(0)}
 }
 
 p{
-  margin-top:10px;
   color:white;
-  font-size:20px;
+  margin-top:10px;
+}
+
+.buttons{
+  margin-top:20px;
 }
 
 button{
-  margin-top:30px;
-  padding:15px 40px;
+  margin:10px;
+  padding:10px 25px;
   border:none;
   background:#00ff88;
   color:black;
-  font-size:18px;
-  border-radius:10px;
+  border-radius:8px;
   cursor:pointer;
   transition:0.3s;
 }
