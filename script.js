@@ -1,56 +1,45 @@
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+function resize(){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+
+const chars = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const fontSize = 16;
+let columns = Math.floor(canvas.width / fontSize);
+let drops = Array(columns).fill(1);
+
+function draw(){
+
+  ctx.fillStyle = "rgba(0,0,0,0.05)";
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+
+  ctx.fillStyle = "#00ff88";
+  ctx.font = fontSize + "px monospace";
+
+  for(let i=0;i<drops.length;i++){
+
+    const text = chars.charAt(
+      Math.floor(Math.random()*chars.length)
+    );
+
+    ctx.fillText(text,i*fontSize,drops[i]*fontSize);
+
+    if(drops[i]*fontSize > canvas.height && Math.random()>0.975){
+      drops[i]=0;
+    }
+
+    drops[i]++;
+  }
 }
 
-body{
-  overflow:hidden;
-  background:black;
-  font-family:Arial;
-}
+setInterval(draw,33);
 
-canvas{
-  position:fixed;
-  top:0;
-  left:0;
-  z-index:-1;
-}
-
-.content{
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  color:#00ff88;
-  text-align:center;
-}
-
-h1{
-  font-size:70px;
-  text-shadow:0 0 20px #00ff88;
-}
-
-p{
-  margin-top:10px;
-  color:white;
-  font-size:20px;
-}
-
-button{
-  margin-top:30px;
-  padding:15px 40px;
-  border:none;
-  background:#00ff88;
-  color:black;
-  font-size:18px;
-  border-radius:10px;
-  cursor:pointer;
-  transition:0.3s;
-}
-
-button:hover{
-  transform:scale(1.1);
-  box-shadow:0 0 20px #00ff88;
-}
+window.addEventListener("resize",()=>{
+  resize();
+  columns = Math.floor(canvas.width / fontSize);
+  drops = Array(columns).fill(1);
+});
